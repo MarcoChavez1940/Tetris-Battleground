@@ -1,0 +1,62 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">
+        <img src="https://marcaesports-prod-images.imgix.net/2018/01/04092437/tetris.jpg?fit=crop&fm=pjpg&h=383&w=680&wpsize=marcaesports_large" width="30" height="30" class="d-inline-block align-top" alt=""> Tetris Battleground
+    </a>
+    <span class="navbar-text">
+        Bienvenido
+    </span>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+
+            <li class="nav-item active">
+                <a class="nav-link" routerLink="/createRoom">Crear nueva sala<span class="sr-only"></span></a>
+            </li>
+
+            <li class="nav-item active">
+                <a class="nav-link" routerLink="/login">Desconectarse<span class="sr-only"></span></a>
+            </li>
+
+
+        </ul>
+    </div>
+
+</nav>
+
+
+
+<div class="row mx-auto" style="margin-top: 10px;">
+
+    <div class="col-8">
+
+        <div class="scrollbar scrollbar-secondary">
+            <div class="force-overflow">
+
+                <div class="row mx-auto">
+                    <div class="col-4" *ngFor="let sala of salas">
+
+                        <div class="card" style="width: 14rem;">
+                            <div class="card-body">
+                                <h5 class="card-title">{{sala.name}}</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">Jugadores {{sala.players}}/{{sala.maxPlayers}}</h6>
+                                <p class="card-text">{{sala.description}}</p>
+                                <button href="#" class="btn btn-primary" [ngClass]="{'btn-danger': isInsideRoom && roomId != sala.id, 'btn-primary': !isInsideRoom }" (click)="goToSala(sala.id)" [disabled]="isInsideRoom && roomId != sala.id">Unirse</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-4">
+        <app-chat></app-chat>
+    </div>
+
+</div>
