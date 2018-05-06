@@ -1,3 +1,4 @@
+const Events = require('./events');
 class Arena {
     constructor(w, h) {
         const matrix = [];
@@ -60,3 +61,5 @@ class Arena {
         return score;
     }
 }
+
+module.exports = Arena;

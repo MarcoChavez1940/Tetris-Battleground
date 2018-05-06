@@ -1,39 +1,41 @@
-class TetrisManager
-{
-    constructor(document)
-    {
+const Tetris = require('./tetris');
+
+class TetrisManager {
+
+    constructor(document) {
         this.document = document;
         this.template = this.document.querySelector('#player-template');
 
         this.instances = [];
     }
 
-    createPlayer()
-    {
-        const element = document
-            .importNode(this.template.content, true)
+    createPlayer() {
+        console.log(this.document.getElementsByTagName("app-tetris-multiplayer")[0]);
+
+        const element = this.document
+            .importNode(this.template, true)
             .children[0];
 
         const tetris = new Tetris(element);
 
-        this.document.body.appendChild(tetris.element);
+        this.document.getElementById("container-players").appendChild(tetris.element);
 
         this.instances.push(tetris);
 
         return tetris;
     }
 
-    removePlayer(tetris)
-    {
-        this.document.body.removeChild(tetris.element);
+    removePlayer(tetris) {
+        this.document.getElementById("container-players").removeChild(tetris.element);
 
         this.instances = this.instances.filter(instance => instance !== tetris);
     }
 
-    sortPlayers(tetri)
-    {
+    sortPlayers(tetri) {
         tetri.forEach(tetris => {
-            this.document.body.appendChild(tetris.element);
+            this.document.getElementById("container-players").appendChild(tetris.element);
         });
     }
 }
+
+module.exports = TetrisManager;

@@ -1,7 +1,7 @@
-class Tetris
-{
-    constructor(element)
-    {
+const Arena = require('./arena');
+const Player = require('./player');
+class Tetris {
+    constructor(element) {
         this.element = element;
         this.canvas = element.querySelector('canvas');
         this.context = this.canvas.getContext('2d');
@@ -38,36 +38,32 @@ class Tetris
         this.updateScore(0);
     }
 
-    draw()
-    {
+    draw() {
         this.context.fillStyle = '#000';
         this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
-        this.drawMatrix(this.arena.matrix, {x: 0, y: 0});
+        this.drawMatrix(this.arena.matrix, { x: 0, y: 0 });
         this.drawMatrix(this.player.matrix, this.player.pos);
     }
 
-    drawMatrix(matrix, offset)
-    {
+    drawMatrix(matrix, offset) {
         matrix.forEach((row, y) => {
             row.forEach((value, x) => {
                 if (value !== 0) {
                     this.context.fillStyle = this.colors[value];
                     this.context.fillRect(x + offset.x,
-                                     y + offset.y,
-                                     1, 1);
+                        y + offset.y,
+                        1, 1);
                 }
             });
         });
     }
 
-    run()
-    {
+    run() {
         this._update();
     }
 
-    serialize()
-    {
+    serialize() {
         return {
             arena: {
                 matrix: this.arena.matrix,
@@ -80,16 +76,16 @@ class Tetris
         };
     }
 
-    unserialize(state)
-    {
+    unserialize(state) {
         this.arena = Object.assign(state.arena);
         this.player = Object.assign(state.player);
         this.updateScore(this.player.score);
         this.draw();
     }
 
-    updateScore(score)
-    {
+    updateScore(score) {
         this.element.querySelector('.score').innerText = score;
     }
 }
+
+module.exports = Tetris;

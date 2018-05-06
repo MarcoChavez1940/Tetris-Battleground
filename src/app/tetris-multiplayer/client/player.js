@@ -1,7 +1,6 @@
-class Player
-{
-    constructor(tetris)
-    {
+const Events = require('./events');
+class Player {
+    constructor(tetris) {
         this.DROP_SLOW = 1000;
         this.DROP_FAST = 50;
 
@@ -13,15 +12,14 @@ class Player
         this.dropCounter = 0;
         this.dropInterval = this.DROP_SLOW;
 
-        this.pos = {x: 0, y: 0};
+        this.pos = { x: 0, y: 0 };
         this.matrix = null;
         this.score = 0;
 
         this.reset();
     }
 
-    createPiece(type)
-    {
+    createPiece(type) {
         if (type === 'T') {
             return [
                 [0, 0, 0],
@@ -67,8 +65,7 @@ class Player
         }
     }
 
-    drop()
-    {
+    drop() {
         this.pos.y++;
         this.dropCounter = 0;
         if (this.arena.collide(this)) {
@@ -82,8 +79,7 @@ class Player
         this.events.emit('pos', this.pos);
     }
 
-    move(dir)
-    {
+    move(dir) {
         this.pos.x += dir;
         if (this.arena.collide(this)) {
             this.pos.x -= dir;
@@ -92,13 +88,12 @@ class Player
         this.events.emit('pos', this.pos);
     }
 
-    reset()
-    {
+    reset() {
         const pieces = 'ILJOTSZ';
         this.matrix = this.createPiece(pieces[pieces.length * Math.random() | 0]);
         this.pos.y = 0;
         this.pos.x = (this.arena.matrix[0].length / 2 | 0) -
-                     (this.matrix[0].length / 2 | 0);
+            (this.matrix[0].length / 2 | 0);
         if (this.arena.collide(this)) {
             this.arena.clear();
             this.score = 0;
@@ -109,8 +104,7 @@ class Player
         this.events.emit('matrix', this.matrix);
     }
 
-    rotate(dir)
-    {
+    rotate(dir) {
         const pos = this.pos.x;
         let offset = 1;
         this._rotateMatrix(this.matrix, dir);
@@ -126,8 +120,7 @@ class Player
         this.events.emit('matrix', this.matrix);
     }
 
-    _rotateMatrix(matrix, dir)
-    {
+    _rotateMatrix(matrix, dir) {
         for (let y = 0; y < matrix.length; ++y) {
             for (let x = 0; x < y; ++x) {
                 [
@@ -147,11 +140,12 @@ class Player
         }
     }
 
-    update(deltaTime)
-    {
+    update(deltaTime) {
         this.dropCounter += deltaTime;
         if (this.dropCounter > this.dropInterval) {
             this.drop();
         }
     }
 }
+
+module.exports = Player;
