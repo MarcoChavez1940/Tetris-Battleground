@@ -13,6 +13,7 @@ import { RouterModule } from "@angular/router";
 import { UserService } from './services/user';
 import { ChatComponent } from './chat/chat.component';
 import { CreateRoomComponent } from './create-room/create-room.component';
+import { TetrisMultiplayerComponent } from './tetris-multiplayer/tetris-multiplayer.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { CreateRoomComponent } from './create-room/create-room.component';
     TetrisComponent,
     LoginComponent,
     ChatComponent,
-    CreateRoomComponent
+    CreateRoomComponent,
+    TetrisMultiplayerComponent
   ],
   imports: [
     BrowserModule,
@@ -41,6 +43,10 @@ import { CreateRoomComponent } from './create-room/create-room.component';
       {
         path: "tetris",
         component: TetrisComponent
+      },
+      {
+        path: "tetris-multiplayer",
+        component: TetrisMultiplayerComponent
       },
       {
         path: "**",
