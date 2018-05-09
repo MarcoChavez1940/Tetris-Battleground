@@ -107,6 +107,7 @@ class ConnectionManager {
         const data = JSON.parse(msg);
         if (data.type === 'session-created') {
             window.location.hash = data.id;
+            this.idSesion = data.id;
         } else if (data.type === 'session-broadcast') {
             this.updateManager(data.peers);
         } else if (data.type === 'state-update') {

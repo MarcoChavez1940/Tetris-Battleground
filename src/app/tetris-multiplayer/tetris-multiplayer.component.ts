@@ -16,6 +16,9 @@ export class TetrisMultiplayerComponent {
 
   constructor() {
 
+  }
+
+  initSesionPlayer(){
     setTimeout(() => {
         const tetrisManager = new TetrisManager(document);
         const tetrisLocal = tetrisManager.createPlayer();
@@ -23,6 +26,20 @@ export class TetrisMultiplayerComponent {
         tetrisLocal.run();
 
         const connectionManager = new ConnectionManager(tetrisManager);
+
+        setTimeout(() => {
+            var id = connectionManager.idSesion;
+
+            if(id === undefined){
+
+            }else{
+                
+            }
+
+            console.log("Sesion creada asdsadas:" + id);
+        }, 100);
+
+        
 
         //connectionManager.connect('ws://' + window.location.hostname + ':9000');
         connectionManager.connect('ws://localhost:9000');
@@ -60,8 +77,12 @@ export class TetrisMultiplayerComponent {
         document.addEventListener('keydown', keyListener);
         document.addEventListener('keyup', keyListener);
     }, 50)
-
   }
+
+  joinSesionGame(){
+      
+  }
+
 
 
 }

@@ -8,7 +8,7 @@ import { Router } from "@angular/router";
   styleUrls: ["./lobby.component.css"]
 })
 export class LobbyComponent {
-  private salas: Sala[] = [
+  private rooms: Sala[] = [
     {
       id: 1,
       name: "Sala 1",
@@ -96,24 +96,44 @@ export class LobbyComponent {
   ];
 
   private isInsideRoom: boolean = false;
-  private roomId: number;
+  private roomSelectedId: number;
 
   constructor(private _Router: Router) {}
 
-  goToSala(salaId: number) {
+  entryRoom(roomId: number) {
     if(this.isInsideRoom === false){
-      this.roomId = salaId;
       this.isInsideRoom = true;
+      this.roomSelectedId = roomId;
       
-      this.salas[salaId-1].players++;
+      
+      let roomSelected = this.rooms.find(function (room) { return room.id === roomId; });
 
-      if(this.salas[salaId-1].players === this.salas[salaId-1].maxPlayers){
-        this._Router.navigateByUrl('/tetris');
+      roomSelected.players++;
+
+      if(roomSelected.players == roomSelected.maxPlayers){
+
+        if(roomSelected.maxPlayers === 1){
+          this._Router.navigateByUrl('/tetris');  
+        }else{
+          let Users: User[] = [
+            {
+              id: 1
+            },
+            {
+              id: 2
+            }
+          ]
+
+          this._Router.navigateByUrl('/tetris-multiplayer');
+
+        }
+
       }
 
+    //Deja la sala
     }else{
       this.isInsideRoom = false;
-      this.salas[salaId-1].players--;
+      this.rooms.find(function (room) { return room.id === roomId; }).players--;
     }
      
   }
@@ -126,4 +146,8 @@ export interface Sala {
   players: number;
   maxPlayers: number;
   description: string;
+}
+
+export  interface User{
+  id: number
 }
