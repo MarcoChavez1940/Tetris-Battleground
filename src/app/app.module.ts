@@ -5,14 +5,15 @@ import { AppComponent } from "./app.component";
 import { LobbyComponent } from "./lobby/lobby.component";
 import { TetrisComponent } from "./tetris/tetris.component";
 import { LoginComponent } from "./login/login.component";
+import { ChatComponent } from './chat/chat.component';
+import { CreateRoomComponent } from './create-room/create-room.component';
+import { TetrisMultiplayerComponent } from './tetris-multiplayer/tetris-multiplayer.component';
 
 import { RouterModule } from "@angular/router";
 
 //Services
-
 import { UserService } from './services/user';
-import { ChatComponent } from './chat/chat.component';
-import { CreateRoomComponent } from './create-room/create-room.component';
+import { GlobalVariablesService } from './services/global-variables.service';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { CreateRoomComponent } from './create-room/create-room.component';
     TetrisComponent,
     LoginComponent,
     ChatComponent,
-    CreateRoomComponent
+    CreateRoomComponent,
+    TetrisMultiplayerComponent
   ],
   imports: [
     BrowserModule,
@@ -43,13 +45,17 @@ import { CreateRoomComponent } from './create-room/create-room.component';
         component: TetrisComponent
       },
       {
+        path: "tetris-multiplayer",
+        component: TetrisMultiplayerComponent
+      },
+      {
         path: "**",
         pathMatch: "full",
         redirectTo: "lobby"
       }
     ])
   ],
-  providers: [UserService],
+  providers: [UserService, GlobalVariablesService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

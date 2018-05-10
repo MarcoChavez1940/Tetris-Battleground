@@ -3,7 +3,7 @@
         <img src="https://marcaesports-prod-images.imgix.net/2018/01/04092437/tetris.jpg?fit=crop&fm=pjpg&h=383&w=680&wpsize=marcaesports_large" width="30" height="30" class="d-inline-block align-top" alt=""> Tetris Battleground
     </a>
     <span class="navbar-text">
-        Bienvenido
+        Bienvenido 
     </span>
 
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -20,13 +20,12 @@
                 <a class="nav-link" routerLink="/login">Desconectarse<span class="sr-only"></span></a>
             </li>
 
-
         </ul>
     </div>
 
 </nav>
 
-
+<h3 id="countdown" [hidden]="!initGame">La partida comenzara en: {{time}}</h3>
 
 <div class="row mx-auto" style="margin-top: 10px;">
 
@@ -36,14 +35,14 @@
             <div class="force-overflow">
 
                 <div class="row mx-auto">
-                    <div class="col-4" *ngFor="let sala of salas">
+                    <div class="col-4" *ngFor="let room of rooms">
 
                         <div class="card" style="width: 14rem;">
                             <div class="card-body">
-                                <h5 class="card-title">{{sala.name}}</h5>
-                                <h6 class="card-subtitle mb-2 text-muted">Jugadores {{sala.players}}/{{sala.maxPlayers}}</h6>
-                                <p class="card-text">{{sala.description}}</p>
-                                <button href="#" class="btn btn-primary" [ngClass]="{'btn-danger': isInsideRoom && roomId != sala.id, 'btn-primary': !isInsideRoom }" (click)="goToSala(sala.id)" [disabled]="isInsideRoom && roomId != sala.id">Unirse</button>
+                                <h5 class="card-title">{{room.name}}</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">Jugadores {{room.players}}/{{room.maxPlayers}}</h6>
+                                <p class="card-text">{{room.description}}</p>
+                                <button href="#" class="btn btn-primary" [ngClass]="{'btn-danger': isInsideRoom && roomSelectedId != room.id, 'btn-primary': !isInsideRoom }" (click)="entryRoom(room.id)" [disabled]="isInsideRoom && roomSelectedId != room.id">Unirse</button>
                             </div>
                         </div>
 
