@@ -3,7 +3,7 @@
         <img src="https://marcaesports-prod-images.imgix.net/2018/01/04092437/tetris.jpg?fit=crop&fm=pjpg&h=383&w=680&wpsize=marcaesports_large" width="30" height="30" class="d-inline-block align-top" alt=""> Tetris Battleground
     </a>
     <span class="navbar-text">
-        Bienvenido
+        Bienvenido 
     </span>
 
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -20,16 +20,12 @@
                 <a class="nav-link" routerLink="/login">Desconectarse<span class="sr-only"></span></a>
             </li>
 
-            <li class="nav-item active">
-                <a class="nav-link" routerLink="/tetris-multiplayer">tetris-multiplayer<span class="sr-only"></span></a>
-            </li>
-
         </ul>
     </div>
 
 </nav>
 
-
+<h3 id="countdown" [hidden]="!initGame">La partida comenzara en: {{time}}</h3>
 
 <div class="row mx-auto" style="margin-top: 10px;">
 

@@ -10,7 +10,7 @@ class TetrisManager {
     }
 
     createPlayer() {
-        console.log(this.document.getElementsByTagName("app-tetris-multiplayer")[0]);
+
 
         const element = this.document
             .importNode(this.template, true)

@@ -1,14 +1,21 @@
 import { Component, OnInit } from "@angular/core";
 
+import * as socketIo from "socket.io-client";
+
 import { Router } from "@angular/router";
+
+import { GlobalVariablesService } from '../services/global-variables.service';
 
 @Component({
   selector: "app-lobby",
   templateUrl: "./lobby.component.html",
   styleUrls: ["./lobby.component.css"]
 })
-export class LobbyComponent {
-  private rooms: Sala[] = [
+export class LobbyComponent implements OnInit{
+  
+  public socket: any;
+
+  private rooms: Room[] = [
     {
       id: 1,
       name: "Sala 1",
@@ -98,56 +105,81 @@ export class LobbyComponent {
   private isInsideRoom: boolean = false;
   private roomSelectedId: number;
 
-  constructor(private _Router: Router) {}
+  private initGame: boolean = false;
+  private time:number = 10;
+
+  constructor(private _Router: Router, private _Global: GlobalVariablesService) {}
 
   entryRoom(roomId: number) {
     if(this.isInsideRoom === false){
       this.isInsideRoom = true;
       this.roomSelectedId = roomId;
-      
+
+      this._Global.setIdRoom(roomId);
       
       let roomSelected = this.rooms.find(function (room) { return room.id === roomId; });
 
       roomSelected.players++;
+
+      this.socket.emit('entry Player', roomId);
 
       if(roomSelected.players == roomSelected.maxPlayers){
 
         if(roomSelected.maxPlayers === 1){
           this._Router.navigateByUrl('/tetris');  
         }else{
-          let Users: User[] = [
-            {
-              id: 1
-            },
-            {
-              id: 2
+          this.initGame = true;
+          this.socket.emit('game_ready', roomId);
+          //Cuenta regresiva.
+          setInterval(()=>{
+            this.time--;
+            if(this.time === 0){
+              this._Router.navigateByUrl('/tetris-multiplayer');  
             }
-          ]
-
-          this._Router.navigateByUrl('/tetris-multiplayer');
-
+          }, 1000)
         }
-
       }
-
     //Deja la sala
     }else{
       this.isInsideRoom = false;
+      this._Global.setIdRoom(null);
       this.rooms.find(function (room) { return room.id === roomId; }).players--;
+      this.socket.emit('leave Player', roomId);
     }
      
   }
 
+  ngOnInit(): void {
+    this.socket = socketIo('http://localhost:3000');
+
+    this.socket.on('entry Player', (id_room) =>{
+      this.rooms.find(room => room.id === id_room).players++;
+    });
+
+    this.socket.on('leave Player', (id_room) =>{
+      this.rooms.find(room => room.id === id_room).players--;
+    });
+
+    this.socket.on('game_ready', ()=>{
+      this.initGame = true; 
+      //Cuenta regresiva.
+      setInterval(()=>{
+        this.time--;
+      }, 1000)
+    })
+
+    this.socket.on('init_game', (id_game) => {     
+        this._Router.navigateByUrl('/tetris-multiplayer#' + id_game);
+    })
+
+  }
+
 }
 
-export interface Sala {
+export interface Room {
   id: number;
   name: string;
   players: number;
   maxPlayers: number;
   description: string;
-}
-
-export  interface User{
-  id: number
 }
