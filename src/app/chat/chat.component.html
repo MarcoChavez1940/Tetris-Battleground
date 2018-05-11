@@ -1,5 +1,21 @@
 <ul class="nav nav-tabs">
 
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Usuario en linea</a>
+        <div class="dropdown-menu">
+
+            <a class="dropdown-item" *ngFor="let user of usersOnline" (click)="addChat(user.username, user.id_chat_correspondent)">{{user.username}}</a>
+
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item">Separated link</a>
+        </div>
+    </li>
+
+    <li *ngFor="let chat of chats" class="nav-item" (click)="changeChat(chat.id_chat)">
+        <a class="nav-link" [ngClass]="{'active': idChatSelected === chat.id_chat}">{{chat.user_contact}}</a>
+    </li>
+
+    <!--
     <li class="nav-item" (click)="changeChat(1)">
         <a class="nav-link" [ngClass]="{'active': idChatSelected === 1}">Global</a>
     </li>
@@ -7,6 +23,7 @@
     <li class="nav-item" (click)="changeChat(2)">
         <a class="nav-link" [ngClass]="{'active': idChatSelected === 2}">CharlieUwU</a>
     </li>
+-->
 
 </ul>
 
