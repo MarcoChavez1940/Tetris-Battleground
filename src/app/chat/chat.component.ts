@@ -25,6 +25,7 @@ export class ChatComponent implements OnInit{
   ];
 
   private idChatSelected: number = 0;
+  private usernameSelected: string = 'Global'
 
   private globalChat: Chat = {
     id_chat: 0,
@@ -70,14 +71,24 @@ export class ChatComponent implements OnInit{
     this.socket.on('init_chat_Braulio' /* + current_user */, (chat) =>{
 
       let remoteChat: Chat = {
-        id_chat: chat.id_chat,
+        id_chat: chat.id_chat, //323
         user_contact: chat.user_sender,
-        messages:  chat.messages
+        messages: []  //Inicializar los mensajes con el Ws
       };
      
-      this.chats.push(remoteChat);
+      var localChat = this.chats.find(function (localChat) { return localChat.id_chat === chat.id_chat})
+
+      if(localChat === undefined){
+        this.chats.push(remoteChat);
       
-      this.socket.emit('entry_chat', chat.id_chat);
+        this.socket.emit('entry_chat', chat.id_chat);  
+      }
+
+      this.usersOnline = this.usersOnline.filter(function( user ) {
+        return user.username !== chat.user_sender;
+      });
+
+      
 
     });
 
@@ -90,7 +101,12 @@ export class ChatComponent implements OnInit{
       //Si el user ya cerro su chat, marcara un error al querer buscar el chat para
       //añadir el chat
       var chat = this.chats.find(function (chat) { return chat.id_chat === message.id_chat})
-      .messages.push(newMessage);
+
+      if(chat !== undefined){
+        chat.messages.push(newMessage);  
+      }
+
+      
 
       setTimeout(this.scrollToBottom, 10);
     });
@@ -117,8 +133,9 @@ export class ChatComponent implements OnInit{
     setTimeout(this.scrollToBottom, 10);
   }
 
-  changeChat(id_chat: number){
+  changeChat(id_chat: number, user_contact: string){
     this.idChatSelected = id_chat;
+    this.usernameSelected = user_contact;
 
     this.messages = this.chats.find(function (chat) { return chat.id_chat === id_chat}).messages; 
   }
@@ -128,13 +145,17 @@ export class ChatComponent implements OnInit{
       id_chat: id_chat_correspondent,
       user_sender: 'Marco', /* current User */
       user_contact: username,
-      messages: []
+      messages: [] //Inicializar los mensajes con el web service
     };  
     
-
     this.socket.emit('init_chat', chat);
 
     this.chats.push(chat);
+
+    this.usersOnline = this.usersOnline.filter(function( user ) {
+      return user.username !== username;
+    });
+
   }
 
   removeChat(id_chat: number){
@@ -142,9 +163,16 @@ export class ChatComponent implements OnInit{
       return chat.id_chat !== id_chat;
     });
     
-    this.changeChat(0);
-
     this.socket.emit('close_chat', this.idChatSelected);
+
+    this.usersOnline.push({
+      id_user: 0,
+      username: this.usernameSelected,
+      id_chat_correspondent: this.idChatSelected
+    })
+
+    this.changeChat(0, 'Global');
+
 
   }
 

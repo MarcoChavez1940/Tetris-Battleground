@@ -14,7 +14,7 @@
 
 
     <!-- Tabs de los chats activos -->
-    <li *ngFor="let chat of chats" class="nav-item" (click)="changeChat(chat.id_chat)">
+    <li *ngFor="let chat of chats" class="nav-item" (click)="changeChat(chat.id_chat, chat.user_contact)">
         <a class="nav-link" [ngClass]="{'active': idChatSelected === chat.id_chat}">{{chat.user_contact}}</a>
     </li>
 
