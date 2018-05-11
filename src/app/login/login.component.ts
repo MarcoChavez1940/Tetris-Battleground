@@ -6,6 +6,7 @@ import { UserService, User } from '../services/user.service';
 
 import { Observable } from 'rxjs/Observable';
 
+import { GlobalVariablesService } from '../services/global-variables.service';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,8 @@ import { Observable } from 'rxjs/Observable';
 })
 export class LoginComponent { 
 
-  constructor(private _Router: Router, private userService: UserService) { }
+  constructor(private _Router: Router, private userService: UserService,
+  private _Global: GlobalVariablesService) { }
 
   doLogin(username: string, password: string){
     var User = {
@@ -26,12 +28,11 @@ export class LoginComponent {
 
     response.subscribe(
       succeful =>{
-        console.log(succeful);
-        console.log("done")
+        this._Global.setCurrentUser(username);
         this.goToLobby();
       },
       err =>{
-        console.log("Algo salio mal")
+        console.log("Usuario no encontrado")
       }
     )
 
@@ -55,6 +56,10 @@ export class LoginComponent {
       }
     )
     
+  }
+
+  doLogout(){
+    this._Global.setCurrentUser('');  
   }
 
   
