@@ -21,6 +21,11 @@ export class ChatComponent implements OnInit{
       id_user: 2,
       username: 'Braulio',
       id_chat_correspondent: 323
+    },
+    {
+      id_user: 5,
+      username: 'MLGPro',
+      id_chat_correspondent: 400
     }
   ];
 
@@ -166,6 +171,28 @@ export class ChatComponent implements OnInit{
     })
 
     this.changeChat(0, 'Global');
+    
+  }
+
+  isFriend(username: string): boolean{
+    var friend = this.usersOnline.find(function (user) { return user.username === username}); 
+    if(friend !== undefined){
+      return true; 
+    }else{
+      return false;
+    } 
+  }
+
+  addFriend(username: string){
+    console.log(username);
+
+    //Do service to add at friend table
+
+    this.usersOnline.push({
+      id_user: 0,
+      username: username,
+      id_chat_correspondent: 5
+    })
     
   }
 
