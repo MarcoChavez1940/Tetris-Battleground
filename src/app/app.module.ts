@@ -15,7 +15,8 @@ import { RouterModule } from "@angular/router";
 import { UserService } from './services/user.service';
 import { GlobalVariablesService } from './services/global-variables.service';
 
-import { HttpClientModule } from '@angular/common/http';
+import { HttpModule } from '@angular/http';
+
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { HttpClientModule } from '@angular/common/http';
   ],
   imports: [
     BrowserModule,
+    HttpModule,
     RouterModule.forRoot([
       {
         path: "login",
@@ -55,8 +57,7 @@ import { HttpClientModule } from '@angular/common/http';
         pathMatch: "full",
         redirectTo: "lobby"
       }
-    ]),
-    HttpClientModule
+    ])
   ],
   providers: [UserService, GlobalVariablesService],
   bootstrap: [AppComponent]

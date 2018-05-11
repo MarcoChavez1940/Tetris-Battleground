@@ -27,12 +27,12 @@ export class LoginComponent {
     let response = this.userService.doLogin( User );
 
     response.subscribe(
-      succeful =>{
+      result => {
         this._Global.setCurrentUser(username);
         this.goToLobby();
       },
-      err =>{
-        console.log("Usuario no encontrado")
+      err => {
+        console.log(err);
       }
     )
 
