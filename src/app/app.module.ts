@@ -12,8 +12,10 @@ import { TetrisMultiplayerComponent } from './tetris-multiplayer/tetris-multipla
 import { RouterModule } from "@angular/router";
 
 //Services
-import { UserService } from './services/user';
+import { UserService } from './services/user.service';
 import { GlobalVariablesService } from './services/global-variables.service';
+
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -53,7 +55,8 @@ import { GlobalVariablesService } from './services/global-variables.service';
         pathMatch: "full",
         redirectTo: "lobby"
       }
-    ])
+    ]),
+    HttpClientModule
   ],
   providers: [UserService, GlobalVariablesService],
   bootstrap: [AppComponent]
