@@ -16,16 +16,35 @@ export class LoginComponent {
 
   constructor(private _Router: Router, private userService: UserService) { }
 
+  doLogin(username: string, password: string){
+    var User = {
+      username: username,
+      password: password
+    }
+    
+    let response = this.userService.doLogin( User );
+
+    response.subscribe(
+      succeful =>{
+        console.log(succeful);
+        console.log("done")
+        this.goToLobby();
+      },
+      err =>{
+        console.log("Algo salio mal")
+      }
+    )
+
+  }
+
   doSignUp(username: string, password: string){
-    console.log(username);
-    console.log(password);
 
     var User = {
       username: username,
       password: password
     }
 
-    let response = this.userService.doSignUp(username, password);
+    let response = this.userService.doSignUp( User );
 
     response.subscribe(
       succeful =>{
@@ -35,6 +54,7 @@ export class LoginComponent {
         console.log("Algo salio mal")
       }
     )
+    
   }
 
   
