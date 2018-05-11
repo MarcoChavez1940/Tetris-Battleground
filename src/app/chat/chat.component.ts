@@ -27,6 +27,7 @@ export class ChatComponent implements OnInit{
   private idChatSelected: number = 0;
   private usernameSelected: string = 'Global'
 
+
   private globalChat: Chat = {
     id_chat: 0,
     user_contact: 'Global',
@@ -86,9 +87,7 @@ export class ChatComponent implements OnInit{
 
       this.usersOnline = this.usersOnline.filter(function( user ) {
         return user.username !== chat.user_sender;
-      });
-
-      
+      }); 
 
     });
 
@@ -98,19 +97,15 @@ export class ChatComponent implements OnInit{
         username: message.username,
         content: message.content  
       }
-      //Si el user ya cerro su chat, marcara un error al querer buscar el chat para
-      //añadir el chat
+      
       var chat = this.chats.find(function (chat) { return chat.id_chat === message.id_chat})
 
       if(chat !== undefined){
         chat.messages.push(newMessage);  
       }
 
-      
-
       setTimeout(this.scrollToBottom, 10);
     });
-
     
   }
 
@@ -136,7 +131,6 @@ export class ChatComponent implements OnInit{
   changeChat(id_chat: number, user_contact: string){
     this.idChatSelected = id_chat;
     this.usernameSelected = user_contact;
-
     this.messages = this.chats.find(function (chat) { return chat.id_chat === id_chat}).messages; 
   }
 
@@ -155,7 +149,7 @@ export class ChatComponent implements OnInit{
     this.usersOnline = this.usersOnline.filter(function( user ) {
       return user.username !== username;
     });
-
+    
   }
 
   removeChat(id_chat: number){
@@ -172,8 +166,7 @@ export class ChatComponent implements OnInit{
     })
 
     this.changeChat(0, 'Global');
-
-
+    
   }
 
 
