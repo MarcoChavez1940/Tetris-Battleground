@@ -2,7 +2,7 @@
 
     <!-- Lista de usuarios Online -->
     <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Usuario en linea</a>
+        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Amigos</a>
         <div class="dropdown-menu">
 
             <a class="dropdown-item" *ngFor="let user of usersOnline" (click)="addChat(user.username, user.id_chat_correspondent)">{{user.username}}</a>
@@ -38,6 +38,10 @@
                         <div class="header">
                             <strong class="primary-font">{{message.username}}</strong>
                             <small class="pull-right text-muted"><i class="fa fa-clock-o"></i> 12 mins ago</small>
+
+                            <!-- <button (click)="addFriend(message.username)" type="button" class="btn btn-primary btn-sm">Agregar</button> -->
+
+                            <strong [hidden]="isFriend(message.username)" class="primary-font"><a (click)="addFriend(message.username)">Agregar</a></strong>
                         </div>
                         <p>
                             {{message.content}}
