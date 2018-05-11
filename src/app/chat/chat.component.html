@@ -1,3 +1,15 @@
+<ul class="nav nav-tabs">
+
+    <li class="nav-item" (click)="changeChat(1)">
+        <a class="nav-link" [ngClass]="{'active': idChatSelected === 1}">Global</a>
+    </li>
+
+    <li class="nav-item" (click)="changeChat(2)">
+        <a class="nav-link" [ngClass]="{'active': idChatSelected === 2}">CharlieUwU</a>
+    </li>
+
+</ul>
+
 <div class="chat-message">
 
     <ul class="chat">
@@ -34,7 +46,7 @@
         <input #message class="form-control border no-shadow no-rounded" placeholder="Type your message here">
 
         <span class="input-group-btn">
-            <button (click)="sendMessage('Marco', message)" class="btn btn-success no-rounded" type="button">Send</button>
+            <button (click)="sendMessage(idChatSelected, 'Marco', message)" class="btn btn-success no-rounded" type="button">Send</button>
         </span>
     </div>
     <!-- /input-group -->
