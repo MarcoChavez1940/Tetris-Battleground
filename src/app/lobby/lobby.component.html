@@ -25,6 +25,7 @@
 
 </nav>
 
+
 <h3 id="countdown" [hidden]="!initGame">La partida comenzara en: {{time}}</h3>
 
 <div class="row mx-auto" style="margin-top: 10px;">
@@ -40,9 +41,9 @@
                         <div class="card" style="width: 14rem;">
                             <div class="card-body">
                                 <h5 class="card-title">{{room.name}}</h5>
-                                <h6 class="card-subtitle mb-2 text-muted">Jugadores {{room.players}}/{{room.maxPlayers}}</h6>
+                                <h6 class="card-subtitle mb-2 text-muted">Jugadores {{room.current_players}}/{{room.max_players}}</h6>
                                 <p class="card-text">{{room.description}}</p>
-                                <button href="#" class="btn btn-primary" [ngClass]="{'btn-danger': isInsideRoom && roomSelectedId != room.id, 'btn-primary': !isInsideRoom }" (click)="entryRoom(room.id)" [disabled]="isInsideRoom && roomSelectedId != room.id">Unirse</button>
+                                <button href="#" class="btn btn-primary" [ngClass]="{'btn-danger': isInsideRoom && roomSelectedId != room.id_room, 'btn-primary': !isInsideRoom }" (click)="entryRoom(room.id_room)" [disabled]="isInsideRoom && roomSelectedId != room.id_room">Unirse</button>
                             </div>
                         </div>
 

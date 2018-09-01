@@ -7,15 +7,17 @@ import { TetrisComponent } from "./tetris/tetris.component";
 import { LoginComponent } from "./login/login.component";
 import { ChatComponent } from './chat/chat.component';
 import { CreateRoomComponent } from './create-room/create-room.component';
-import { TetrisMultiplayerComponent } from './tetris-multiplayer/tetris-multiplayer.component';
-
+import { TetrisMultiplayerComponent } from './tetris-multiplayer/tetris-multiplayer.component'
 import { RouterModule } from "@angular/router";
 
 //Services
 import { UserService } from './services/user.service';
+import { RoomService } from './services/room.service';
 import { GlobalVariablesService } from './services/global-variables.service';
 
-import { HttpClientModule } from '@angular/common/http';
+import { HttpModule } from '@angular/http';
+import { CreateUserComponent } from './create-user/create-user.component';
+
 
 @NgModule({
   declarations: [
@@ -25,10 +27,12 @@ import { HttpClientModule } from '@angular/common/http';
     LoginComponent,
     ChatComponent,
     CreateRoomComponent,
-    TetrisMultiplayerComponent
+    TetrisMultiplayerComponent,
+    CreateUserComponent
   ],
   imports: [
     BrowserModule,
+    HttpModule,
     RouterModule.forRoot([
       {
         path: "login",
@@ -43,6 +47,10 @@ import { HttpClientModule } from '@angular/common/http';
         component: CreateRoomComponent
       },
       {
+        path: "signup",
+        component: CreateUserComponent
+      },
+      {
         path: "tetris",
         component: TetrisComponent
       },
@@ -55,10 +63,9 @@ import { HttpClientModule } from '@angular/common/http';
         pathMatch: "full",
         redirectTo: "lobby"
       }
-    ]),
-    HttpClientModule
+    ])
   ],
-  providers: [UserService, GlobalVariablesService],
+  providers: [UserService, RoomService, GlobalVariablesService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

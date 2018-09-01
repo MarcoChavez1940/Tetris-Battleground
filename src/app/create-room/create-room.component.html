@@ -18,17 +18,17 @@
     <form>
         <div class="form-group">
             <label for="exampleInputEmail1">Nombre de la sala</label>
-            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Nombre">
+            <input #name type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Nombre">
         </div>
         <div class="form-group">
             <label for="exampleInputPassword1">Descripción</label>
-            <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Descripcion">
+            <input #description type="text" class="form-control" id="exampleInputPassword1" placeholder="Descripcion">
         </div>
 
         <div class="form-group">
             <label for="exampleInputPassword1">Jugadores maximos</label>
-            <select class="selectpicker">
-                <option>1</option>
+            <select #players class="selectpicker">
+                <option selected>1</option>
                 <option>2</option>
                 <option>3</option>
                 <option>4</option>
@@ -42,13 +42,13 @@
 
         <div class="form-group">
             <label for="exampleInputPassword1">Dificultad</label>
-            <select class="selectpicker">
-                <option>Fácil</option>
+            <select #difficulty class="selectpicker">
+                <option selected>Fácil</option>
                 <option>Dificil</option>
-                <option>Legendario con todos las calaveras</option>
               </select>
         </div>
 
-        <button type="submit" class="btn btn-primary" (click)="createRoom()">Crear Sala</button>
+
     </form>
+    <button type="submit" class="btn btn-primary" (click)="createRoom(name.value, description.value, players.value, difficulty.value)">Crear Sala</button>
 </div>

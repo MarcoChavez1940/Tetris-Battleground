@@ -27,39 +27,28 @@ export class LoginComponent {
     let response = this.userService.doLogin( User );
 
     response.subscribe(
-      succeful =>{
-        this._Global.setCurrentUser(username);
-        this.goToLobby();
+      result => {
+
+        if(result.message === 'Successful login'){
+          alert('Bienvenido');
+          this._Global.setIdUser(result.value);
+          this._Global.setCurrentUser(username);
+          this.goToLobby();
+        }else{
+          alert('Usuario invalido');
+        }
+       
       },
-      err =>{
-        console.log("Usuario no encontrado")
+      err => {
+        console.log(err);
       }
     )
 
-  }
-
-  doSignUp(username: string, password: string){
-
-    var User = {
-      username: username,
-      password: password
-    }
-
-    let response = this.userService.doSignUp( User );
-
-    response.subscribe(
-      succeful =>{
-        console.log("done")
-      },
-      err =>{
-        console.log("Algo salio mal")
-      }
-    )
-    
   }
 
   doLogout(){
-    this._Global.setCurrentUser('');  
+    this._Global.setCurrentUser('');
+    this._Global.setIdUser(0);  
   }
 
   

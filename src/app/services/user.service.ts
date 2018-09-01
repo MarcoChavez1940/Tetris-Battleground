@@ -1,19 +1,28 @@
 import { Injectable } from '@angular/core';
 
-import { HttpClient } from '@angular/common/http';
+import { Http } from "@angular/http";
+
+import "rxjs/add/operator/timeout";
+import "rxjs/add/operator/map";
+
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class UserService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: Http) { }
 
   doLogin(user: User){
-    return this.http.post('http://localhost/TetrisWebService/public/user/login', user)
+    return this.http
+      .post('http://localhost/TetrisWebService/public/user/login',user)
+      .map(result => result.json());
+
   }
 
   doSignUp(user: User){
-    return this.http.post('http://localhost/TetrisWebService/public/user/signup', user);
+    return this.http
+      .post('http://localhost/TetrisWebService/public/user/signup', user)
+      .map(result => result.json());
   }
 
 }
