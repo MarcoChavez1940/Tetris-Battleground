@@ -21,11 +21,6 @@ export class ChatComponent implements OnInit{
       id_user: 2,
       username: 'Braulio',
       id_chat_correspondent: 323
-    },
-    {
-      id_user: 5,
-      username: 'MLGPro',
-      id_chat_correspondent: 400
     }
   ];
 
@@ -39,13 +34,13 @@ export class ChatComponent implements OnInit{
     messages: [
       {
         id_chat: 0,
-        username: "MLGPro",
-        content: "Retas putos"
+        username: "Jugador1",
+        content: "Voy a crear una sala"
       },
       {
         id_chat: 0,
-        username: "ChinoAsiticoJapones",
-        content: "ora ora ora ora!"
+        username: "Jugador2",
+        content: "Okey va"
       }
     ]
   };

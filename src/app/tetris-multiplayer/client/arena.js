@@ -11,6 +11,8 @@ class Arena {
     }
 
     clear() {
+
+        window.location.href = 'http://localhost:4200/lobby';
         this.matrix.forEach(row => row.fill(0));
         this.events.emit('matrix', this.matrix);
     }
@@ -41,6 +43,7 @@ class Arena {
     }
 
     sweep() {
+
         let rowCount = 1;
         let score = 0;
         outer: for (let y = this.matrix.length - 1; y > 0; --y) {

@@ -7,15 +7,16 @@ import { TetrisComponent } from "./tetris/tetris.component";
 import { LoginComponent } from "./login/login.component";
 import { ChatComponent } from './chat/chat.component';
 import { CreateRoomComponent } from './create-room/create-room.component';
-import { TetrisMultiplayerComponent } from './tetris-multiplayer/tetris-multiplayer.component';
-
+import { TetrisMultiplayerComponent } from './tetris-multiplayer/tetris-multiplayer.component'
 import { RouterModule } from "@angular/router";
 
 //Services
 import { UserService } from './services/user.service';
+import { RoomService } from './services/room.service';
 import { GlobalVariablesService } from './services/global-variables.service';
 
 import { HttpModule } from '@angular/http';
+import { CreateUserComponent } from './create-user/create-user.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { HttpModule } from '@angular/http';
     LoginComponent,
     ChatComponent,
     CreateRoomComponent,
-    TetrisMultiplayerComponent
+    TetrisMultiplayerComponent,
+    CreateUserComponent
   ],
   imports: [
     BrowserModule,
@@ -45,6 +47,10 @@ import { HttpModule } from '@angular/http';
         component: CreateRoomComponent
       },
       {
+        path: "signup",
+        component: CreateUserComponent
+      },
+      {
         path: "tetris",
         component: TetrisComponent
       },
@@ -59,7 +65,7 @@ import { HttpModule } from '@angular/http';
       }
     ])
   ],
-  providers: [UserService, GlobalVariablesService],
+  providers: [UserService, RoomService, GlobalVariablesService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

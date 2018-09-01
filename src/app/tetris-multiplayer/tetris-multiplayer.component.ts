@@ -20,7 +20,7 @@ export class TetrisMultiplayerComponent {
   public socket: any;
 
   constructor(private _Global: GlobalVariablesService) {
-    this.socket = socketIo("http://localhost:3000");
+    this.socket = socketIo("http://localhost:3002");
 
     setTimeout(() => {
       const tetrisManager = new TetrisManager(document);
